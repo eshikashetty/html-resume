@@ -1,0 +1,49 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  text-align: center;
+  padding-top: 40px;
+  line-height: 1.6;
+}
+
+.resume-title {
+  color: #007BFF;
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  color: #444;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.academic-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 80%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.table-header {
+  background-color: #007BFF;
+  color: #FFF;
+}
+
+.header-cell {
+  padding: 16px;
+}
+
+.btn {
+  text-decoration: none;
+  background-color: #007BFF;
+  color: #FFF;
+  font-size: 18px;
+  padding: 12px 24px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
