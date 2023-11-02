@@ -1,0 +1,74 @@
+import React, { Component } from 'react';
+class DrawingPad extends Component {
+ constructor(props) {
+ super(props);
+ this.state = {
+ drawing: false,
+ penColor: 'black',
+ };
+ this.canvasRef = React.createRef();
+ this.ctx = null;
+ }
+ componentDidMount() {
+ const canvas = this.canvasRef.current;
+ this.ctx = canvas.getContext('2d');
+ this.ctx.lineWidth = 2;
+ this.ctx.lineJoin = 'round';
+ this.ctx.lineCap = 'round';
+ // Listen for keyboard events
+ window.addEventListener('keydown', this.handleKeyDown);
+ }
+ componentWillUnmount() {
+ // Remove the event listener when the component is unmounted
+ window.removeEventListener('keydown', this.handleKeyDown);
+ }
+ handleMouseDown = (event) => {
+ this.setState({ drawing: true });
+ const { offsetX, offsetY } = event.nativeEvent;
+ this.ctx.beginPath();
+ this.ctx.moveTo(offsetX, offsetY);
+ };
+ handleMouseMove = (event) => {
+ if (this.state.drawing) {
+ const { offsetX, offsetY } = event.nativeEvent;
+ this.ctx.strokeStyle = this.state.penColor;
+ this.ctx.lineTo(offsetX, offsetY);
+ this.ctx.stroke();
+ }
+ };
+ handleMouseUp = () => {
+ this.setState({ drawing: false });
+ this.ctx.closePath();
+ };
+ handleKeyDown = (event) => {
+ if (event.key === 'c') {
+ // Clear the canvas when the 'c' key is pressed
+ this.ctx.clearRect(0, 0, this.canvasRef.current.width, this.canvasRef.current.height);
+ } else if (event.key === 'r') {
+ // Change the pen color to red when the 'r' key is pressed
+ this.setState({ penColor: 'red' });
+ } else if (event.key === 'b') {
+ // Change the pen color to black when the 'b' key is pressed
+ this.setState({ penColor: 'black' });
+ }
+ };
+ render() {
+ return (
+ <div>
+ <h2>Drawing Pad</h2>
+ <canvas
+ ref={this.canvasRef}
+ width={500}
+ height={500}
+ onMouseDown={this.handleMouseDown}
+ onMouseMove={this.handleMouseMove}
+ onMouseUp={this.handleMouseUp}
+ ></canvas>
+ <p>Click and drag the mouse to draw on the canvas.</p>
+ <p>Press 'c' to clear the canvas, 'r' to change pen color to red, and 'b' to change pen color
+to black.</p>
+ </div>
+ );
+ }
+}
+export default DrawingPad;
