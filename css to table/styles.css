@@ -1,0 +1,32 @@
+/* styles.css */
+body {
+  background-color: black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px;
+}
+
+th {
+  background-color: blue;
+  color: white;
+  text-align: left;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: lightblue;
+}
+
+tr:nth-child(odd) {
+  background-color: lightblue;
+}
+
+td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  color: darkblue;
+  font-style: italic;
+}
