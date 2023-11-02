@@ -1,0 +1,124 @@
+About.js:
+import React from "react";
+function About() {
+ return (
+ <>
+ <h1>This is the About Page!</h1>
+ <p>I am a 19 year old Engineering Student! I like to listen to music.</p>
+ </>
+ );
+}
+export default About;
+App.js:
+import React, { Component } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import LoginScreen from "./LoginScreen";
+//import './App.css';
+class App extends Component {
+ render() {
+ return (
+ <Router>
+ <div className="App">
+ <ul className="App-header">
+ <li>
+ <Link to="/">Home</Link>
+ </li>
+ <li>
+ <Link to="/about">About</Link>
+ </li>
+ <li>
+ <Link to="/login">Login</Link>
+ </li>
+ </ul>
+ <Routes>
+ <Route exact path="/" element={<Home />}></Route>
+ <Route exact path="/about" element={<About />}></Route>
+ <Route exact path="/login" element={<LoginScreen />}></Route>
+ </Routes>
+ </div>
+ </Router>
+ );
+ }
+}
+export default App;
+Home.js:
+import React from "react";
+function Home() {
+ return (
+ <div class="home">
+ <h1>This is the Home Page!</h1>
+ <p>I am learning react router</p>
+ </div>
+ );
+}
+export default Home;
+LoginScreen.js:
+import React, { Component } from "react";
+class LoginScreen extends Component {
+ constructor(props) {
+ super(props);
+ this.state = {
+ username: "",
+ password: "",
+ isLoggedIn: false,
+ showPopup: false,
+ };
+ }
+ handleUsernameChange = (event) => {
+ const input = event.target.value.replace(/[^A-Za-z]/g, "");
+ this.setState({ username: input });
+ };
+ handlePasswordChange = (event) => {
+ this.setState({ password: event.target.value });
+ };
+ handleUsernameKeyPress = (event) => {
+ const key = event.key;
+ if (!/[a-zA-Z]/.test(key)) {
+ event.preventDefault();
+ this.setState({ showPopup: true });
+ setTimeout(() => {
+ this.setState({ showPopup: false });
+ }, 1500);
+ }
+ };
+ handleSubmit = (event) => {
+ event.preventDefault();
+ if (this.state.username === "Meetali" && this.state.password === "swift1989") {
+ this.setState({ isLoggedIn: true });
+ }
+ };
+ render() {
+ if (this.state.isLoggedIn) {
+ return <div>Welcome, {this.state.username}!</div>;
+ } else {
+ return (
+ <form onSubmit={this.handleSubmit}>
+ <div>
+ <label>Username:</label>
+ <input
+ type="text"
+ value={this.state.username}
+ onChange={this.handleUsernameChange}
+ onKeyPress={this.handleUsernameKeyPress}
+ />
+ {this.state.showPopup && (
+ <div className="popup">Enter only Alphabets.</div>
+ )}
+ </div>
+ <div>
+ <label>Password:</label>
+ <input
+ type="password"
+ value={this.state.password}
+ onChange={this.handlePasswordChange}
+ />
+ </div>
+ <button type="submit">Login</button>
+ </form>
+ );
+ }
+ }
+}
+export default LoginScreen;
